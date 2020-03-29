@@ -47,10 +47,29 @@ With that setup the file is updated when `npm start` and `npm build` are run.
 ## Receiving the versions
 
 The script generates a TypeScript file at the location `./src/_versions.ts` if you haven't provided a different location.
-You'll be able to import the values just like any other package:
+You'll be able to import the values just like any other package, if you want use just versions information, like in environment.ts example file:
 ```
-import { versions, TsAppVersion } from '../_versions';
+import versions from '../_versions';
 ```
+or you can import also TsAppVersion and use direclty in your template, like in app.component.ts example file
+```
+import { TsAppVersion } from 'src/_versions.ts';
+import versions from 'src/_versions.ts';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent { 
+  public readonly tsAppVersion: TsAppVersion;
+  constructor() {
+    this.tsAppVersion = versions;
+  }
+}
+```
+
+> backward compatibility with previous version is guarantee
 
 The file will export an object with following variables:
 
