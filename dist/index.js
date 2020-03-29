@@ -67,8 +67,8 @@ let src = `export interface TsAppVersion {
     gitCommitHash?: string;
     gitCommitDate?: string;
     gitTag?: string;
-}
-export const versions: TsAppVersion = {
+};
+const obj: TsAppVersion = {
     version: '${appVersion}',
     name: '${appName}',
     versionDate: '${new Date().toISOString()}',
@@ -133,6 +133,7 @@ if (enableGit) {
 }
 
 src += `};
+export default obj;
 `;
 
 console.log('[TsAppVersion] ' + colors.green('Writing version module to ') + colors.yellow(versionFile));

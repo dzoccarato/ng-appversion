@@ -55,10 +55,26 @@ describe('appversion', function() {
                 return;
             }
             const fileContents = fs.readFileSync(outputFile, 'utf8');
+
+            // interface well format test
+            expect(fileContents).to.contains('export interface TsAppVersion {');        // interface start
+            expect(fileContents).to.contains('version: string;');
+            expect(fileContents).to.contains('name: string;');
+            expect(fileContents).to.contains('description?: string;');
+            expect(fileContents).to.contains('versionLong?: string;');
+            expect(fileContents).to.contains('versionDate: string;');
+            expect(fileContents).to.contains('gitCommitHash?: string;');
+            expect(fileContents).to.contains('gitCommitDate?: string;');
+            expect(fileContents).to.contains('gitTag?: string;');
+            expect(fileContents).to.contains('};\nconst obj: TsAppVersion = {');        // interface end + obj start
+
+            // data test
             expect(fileContents).to.contains('version: \'1.0.0\',');
             expect(fileContents).to.contains('name: \'test\',');
             expect(fileContents).to.contains('description: \'test description\',');
+            expect(fileContents).to.contains('};\nexport default obj;\n');              // export default obj + file close
             expect(fileContents).not.to.contains('versionLong = \'1.0.0-');
+
             done();
         });
     });
@@ -83,12 +99,26 @@ describe('appversion', function() {
                 return;
             }
             const fileContents = fs.readFileSync(outputFile, 'utf8');
-            expect(fileContents).to.contains('export const versions: TsAppVersion =');
+            // interface well format test
+            expect(fileContents).to.contains('export interface TsAppVersion {');        // interface start
+            expect(fileContents).to.contains('version: string;');
+            expect(fileContents).to.contains('name: string;');
+            expect(fileContents).to.contains('description?: string;');
+            expect(fileContents).to.contains('versionLong?: string;');
+            expect(fileContents).to.contains('versionDate: string;');
+            expect(fileContents).to.contains('gitCommitHash?: string;');
+            expect(fileContents).to.contains('gitCommitDate?: string;');
+            expect(fileContents).to.contains('gitTag?: string;');
+            expect(fileContents).to.contains('};\nconst obj: TsAppVersion = {');        // interface end + obj start
+
+            // data test
             expect(fileContents).to.contains('version: \'1.0.0\',');
             expect(fileContents).to.contains('name: \'test\',');
             expect(fileContents).to.contains('description: \'test description\',');
             expect(fileContents).to.contains('versionLong: \'1.0.0-');
+            expect(fileContents).to.contains('};\nexport default obj;\n');              // export default obj + file close
             expect(fileContents).to.not.contains('versionLong: \'1.0.0-\'');
+
             done();
         });
     });
@@ -113,12 +143,26 @@ describe('appversion', function() {
                 return;
             }
             const fileContents = fs.readFileSync(outputFile, 'utf8');
-            expect(fileContents).to.contains('export const versions: TsAppVersion =');
+            // interface well format test
+            expect(fileContents).to.contains('export interface TsAppVersion {');        // interface start
+            expect(fileContents).to.contains('version: string;');
+            expect(fileContents).to.contains('name: string;');
+            expect(fileContents).to.contains('description?: string;');
+            expect(fileContents).to.contains('versionLong?: string;');
+            expect(fileContents).to.contains('versionDate: string;');
+            expect(fileContents).to.contains('gitCommitHash?: string;');
+            expect(fileContents).to.contains('gitCommitDate?: string;');
+            expect(fileContents).to.contains('gitTag?: string;');
+            expect(fileContents).to.contains('};\nconst obj: TsAppVersion = {');        // interface end + obj start
+
+            // data test
             expect(fileContents).to.contains('version: \'1.0.0\',');
             expect(fileContents).to.contains('name: \'test\',');
             expect(fileContents).to.contains('versionLong: \'1.0.0-');
             expect(fileContents).to.not.contains('versionLong: \'1.0.0-\'');
+            expect(fileContents).to.contains('};\nexport default obj;\n');              // export default obj + file close
             expect(fileContents).to.not.contains('description: \'');
+
             done();
         });
     });
@@ -142,12 +186,26 @@ describe('appversion', function() {
                 return;
             }
             const fileContents = fs.readFileSync(outputFile, 'utf8');
-            expect(fileContents).to.contains('export const versions: TsAppVersion =');
+            // interface well format test
+            expect(fileContents).to.contains('export interface TsAppVersion {');        // interface start
+            expect(fileContents).to.contains('version: string;');
+            expect(fileContents).to.contains('name: string;');
+            expect(fileContents).to.contains('description?: string;');
+            expect(fileContents).to.contains('versionLong?: string;');
+            expect(fileContents).to.contains('versionDate: string;');
+            expect(fileContents).to.contains('gitCommitHash?: string;');
+            expect(fileContents).to.contains('gitCommitDate?: string;');
+            expect(fileContents).to.contains('gitTag?: string;');
+            expect(fileContents).to.contains('};\nconst obj: TsAppVersion = {');        // interface end + obj start
+
+            // data test
             expect(fileContents).to.contains('version: \'1.0.0\',');
             expect(fileContents).to.contains('name: \'test\',');
             expect(fileContents).to.contains('description: \'test description\',');
             expect(fileContents).to.contains('versionLong: \'1.0.0-');
+            expect(fileContents).to.contains('};\nexport default obj;\n');              // export default obj + file close
             expect(fileContents).to.not.contains('versionLong: \'1.0.0-\'');
+
             done();
         });
     });
@@ -173,12 +231,27 @@ describe('appversion', function() {
                 return;
             }
             const fileContents = fs.readFileSync(outputFile, 'utf8');
-            expect(fileContents).to.contains('export const versions: TsAppVersion =');
+            // interface well format test
+            expect(fileContents).to.contains('export interface TsAppVersion {');        // interface start
+            expect(fileContents).to.contains('version: string;');
+            expect(fileContents).to.contains('name: string;');
+            expect(fileContents).to.contains('description?: string;');
+            expect(fileContents).to.contains('versionLong?: string;');
+            expect(fileContents).to.contains('versionDate: string;');
+            expect(fileContents).to.contains('gitCommitHash?: string;');
+            expect(fileContents).to.contains('gitCommitDate?: string;');
+            expect(fileContents).to.contains('gitTag?: string;');
+            expect(fileContents).to.contains('};\nconst obj: TsAppVersion = {');        // interface end + obj start
+
+            // data test
             expect(fileContents).to.contains('version: \'1.0.0\'');
             expect(fileContents).to.contains('name: \'test\'');
             expect(fileContents).to.contains('description: \'test description\'');
             expect(fileContents).to.contains('versionLong: \'1.0.0-');
+            expect(fileContents).to.contains('};\nexport default obj;\n');              // export default obj + file close
+
             expect(fileContents).to.not.contains('versionLong: \'1.0.0-\'');
+
             done();
         });
     });
