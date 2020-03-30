@@ -50,22 +50,33 @@ const outputFile = argv.hasOwnProperty('file') ? argv.file : path.join('src', '_
 const versionFile = path.join(projectFolder, outputFile);
 
 // pull version from package.json
-const appVersion = require(packageFile).version;
+const pkg = require(packageFile); 
+const appVersion = pkg.version;
+const appName = pkg.name;
+const appDescription = pkg.description;
 
 console.log('[TsAppVersion] ' + colors.green('Application version (from package.json): ') + colors.yellow(appVersion));
-let src = `interface TsAppVersion {
+console.log('[TsAppVersion] ' + colors.green('Application description (from package.json): ') + colors.yellow(appName));
+
+let src = `export interface TsAppVersion {
     version: string;
+    name: string;
+    description?: string;
     versionLong?: string;
     versionDate: string;
     gitCommitHash?: string;
     gitCommitDate?: string;
     gitTag?: string;
-}
+};
 const obj: TsAppVersion = {
     version: '${appVersion}',
-    versionDate: '${new Date().toISOString()}'
-};
+    name: '${appName}',
+    versionDate: '${new Date().toISOString()}',
 `;
+if (appDescription !== undefined && appDescription !== '') {
+    console.log('[TsAppVersion] ' + colors.green('Application description (from package.json): ') + colors.yellow(appDescription));
+    src += `    description: '${appDescription}',\n`;
+}
 
 let enableGit = false;
 let gitFolder = projectFolder;
@@ -87,7 +98,7 @@ if (enableGit) {
         let versionWithHash = appVersion;
         if (info.hasOwnProperty('hash')) {
             versionWithHash = versionWithHash + '-' + info.hash;
-            src += `obj.gitCommitHash = '${info.hash}';\n`;
+            src += `    gitCommitHash: '${info.hash}',\n`;
             console.log('[TsAppVersion] ' + colors.green('Git Commit hash: ') + colors.yellow(info.hash));
 
             // Get date of commit
@@ -100,17 +111,17 @@ if (enableGit) {
                 if (gitCommit.hasOwnProperty('date')) {
                     const gitDateString = new Date(gitCommit.date).toISOString();
                     console.log('[TsAppVersion] ' + colors.green('Git Commit date: ') + colors.yellow(gitDateString));
-                    src += `obj.gitCommitDate = '${gitDateString}';\n`;
+                    src += `    gitCommitDate: '${gitDateString}',\n`;
                 }
             } catch (e) {
                 console.log(e);
             }
         }
         console.log('[TsAppVersion] ' + colors.green('Long Git version: ') + colors.yellow(versionWithHash));
-        src += `obj.versionLong = '${versionWithHash}';\n`;
+        src += `    versionLong: '${versionWithHash}',\n`;
         if (info.hasOwnProperty('tag')) {
             console.log('[TsAppVersion] ' + colors.green('Git tag: ') + colors.yellow(info.tag));
-            src += `obj.gitTag = '${info.tag}';\n`;
+            src += `    gitTag: '${info.tag}',\n`;
         }
     } catch(e) {
         if (new RegExp(/Not a git repository/).test(e.message)) {
@@ -121,7 +132,8 @@ if (enableGit) {
     }
 }
 
-src += `export default obj;
+src += `};
+export default obj;
 `;
 
 console.log('[TsAppVersion] ' + colors.green('Writing version module to ') + colors.yellow(versionFile));
